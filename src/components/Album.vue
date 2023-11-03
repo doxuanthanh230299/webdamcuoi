@@ -1,5 +1,5 @@
 <template>
-  <section id="wedding-album" class="wedding-album">
+  <section id="album" class="wedding-album">
     <div class="tw-container">
       <div class="sm:tw-block tw-flex tw-px-3.5">
         <div class="tw-w-3/4 tw-mx-auto">
@@ -69,66 +69,62 @@
     }
   }
   .gallery-container {
-    // display: grid;
-    // grid-template-columns: auto auto auto;
     gap: 15px;
     margin: 0 -7.5px;
   }
 }
 </style>
 
-<script>
-export default {
-  name: 'Album',
-  data() {
-    return {
-      images: [
-        {
-          id: 1,
-          url: 'https://cdn.biihappy.com/ziiweb/website/647a951e7a0e7dd068022467/galleries/647aa1d0b2cdf2182f00ef34/small.jpg',
-        },
-        {
-          id: 2,
-          url: 'https://cdn.biihappy.com/ziiweb/website/647a951e7a0e7dd068022467/galleries/647aa1d0b2cdf2182f00ef34/small.jpg',
-        },
-        {
-          id: 11,
-          url: 'https://cdn.biihappy.com/ziiweb/website/647a951e7a0e7dd068022467/galleries/647aa1eddaed22d1650854e3/small.jpg',
-        },
-        {
-          id: 3,
-          url: 'https://cdn.biihappy.com/ziiweb/website/647a951e7a0e7dd068022467/galleries/647aa1d0b2cdf2182f00ef34/small.jpg',
-        },
-        {
-          id: 4,
-          url: 'https://cdn.biihappy.com/ziiweb/website/647a951e7a0e7dd068022467/galleries/647aa1e798a36973a90b78c8/small.jpg',
-        },
-        {
-          id: 5,
-          url: 'https://cdn.biihappy.com/ziiweb/website/647a951e7a0e7dd068022467/galleries/647aa1d0b2cdf2182f00ef34/small.jpg',
-        },
-        {
-          id: 6,
-          url: 'https://cdn.biihappy.com/ziiweb/website/647a951e7a0e7dd068022467/galleries/647aa1f575a686ad730eb564/small.jpg',
-        },
-        {
-          id: 7,
-          url: 'https://cdn.biihappy.com/ziiweb/website/647a951e7a0e7dd068022467/galleries/647aa1fb410fa9c8e304f356/small.jpg',
-        },
-        {
-          id: 8,
-          url: 'https://cdn.biihappy.com/ziiweb/website/647a951e7a0e7dd068022467/galleries/647aa1d0b2cdf2182f00ef34/small.jpg',
-        },
-        {
-          id: 9,
-          url: 'https://cdn.biihappy.com/ziiweb/website/647a951e7a0e7dd068022467/galleries/647aa1d0b2cdf2182f00ef34/small.jpg',
-        },
-        {
-          id: 10,
-          url: 'https://cdn.biihappy.com/ziiweb/website/647a951e7a0e7dd068022467/galleries/647aa1fb410fa9c8e304f356/small.jpg',
-        },
-      ],
-    };
+<script lang="ts" setup>
+interface Image {
+  id: number;
+  url: string;
+}
+
+const images:Image[] = [
+  {
+    id: 1,
+    url: 'https://cdn.biihappy.com/ziiweb/website/647a951e7a0e7dd068022467/galleries/647aa1d0b2cdf2182f00ef34/small.jpg',
   },
-};
+  {
+    id: 2,
+    url: 'https://cdn.biihappy.com/ziiweb/website/647a951e7a0e7dd068022467/galleries/647aa1d0b2cdf2182f00ef34/small.jpg',
+  },
+  {
+    id: 11,
+    url: 'https://cdn.biihappy.com/ziiweb/website/647a951e7a0e7dd068022467/galleries/647aa1eddaed22d1650854e3/small.jpg',
+  },
+  {
+    id: 3,
+    url: 'https://cdn.biihappy.com/ziiweb/website/647a951e7a0e7dd068022467/galleries/647aa1d0b2cdf2182f00ef34/small.jpg',
+  },
+  {
+    id: 4,
+    url: 'https://cdn.biihappy.com/ziiweb/website/647a951e7a0e7dd068022467/galleries/647aa1e798a36973a90b78c8/small.jpg',
+  },
+  {
+    id: 5,
+    url: 'https://cdn.biihappy.com/ziiweb/website/647a951e7a0e7dd068022467/galleries/647aa1d0b2cdf2182f00ef34/small.jpg',
+  },
+  {
+    id: 6,
+    url: 'https://cdn.biihappy.com/ziiweb/website/647a951e7a0e7dd068022467/galleries/647aa1f575a686ad730eb564/small.jpg',
+  },
+  {
+    id: 7,
+    url: 'https://cdn.biihappy.com/ziiweb/website/647a951e7a0e7dd068022467/galleries/647aa1fb410fa9c8e304f356/small.jpg',
+  },
+  {
+    id: 8,
+    url: 'https://cdn.biihappy.com/ziiweb/website/647a951e7a0e7dd068022467/galleries/647aa1d0b2cdf2182f00ef34/small.jpg',
+  },
+  {
+    id: 9,
+    url: 'https://cdn.biihappy.com/ziiweb/website/647a951e7a0e7dd068022467/galleries/647aa1d0b2cdf2182f00ef34/small.jpg',
+  },
+  {
+    id: 10,
+    url: 'https://cdn.biihappy.com/ziiweb/website/647a951e7a0e7dd068022467/galleries/647aa1fb410fa9c8e304f356/small.jpg',
+  },
+];
 </script>

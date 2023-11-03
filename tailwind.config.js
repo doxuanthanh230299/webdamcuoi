@@ -1,7 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [],
-  purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
+  content: ['./public/**/*.html', './src/**/*.{js,jsx,ts,tsx,vue}'],
   prefix: 'tw-',
   theme: {
     screens: {
@@ -34,9 +33,6 @@ module.exports = {
       dancingScript: ['Dancing Script'],
       comfortaa: ['Comfortaa'],
     },
-    // variants: {
-    //   backgroundColor: ['hover'],
-    // },
     extend: {},
   },
   plugins: [],

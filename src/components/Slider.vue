@@ -1,14 +1,14 @@
 <template>
-  <div class="banner tw-w-full tw-h-[650px] tw-relative">
+  <div class="banner tw-w-full tw-h-[100vh] tw-relative">
     <Carousel :autoplay="1000" :itemsToShow="1" :wrapAround="true">
       <Slide v-for="(image, index) in images" :key="image.id">
-        <div class="tw-w-full tw-justify-items-center tw-items-center">
+        <div class="tw-w-full tw-h-full tw-justify-items-center tw-items-center">
           <img class="slide-img" :src="image.url" alt="" />
         </div>
       </Slide>
     </Carousel>
     <div class="slide-text tw-absolute tw-left-1/2 tw-top-1/2">
-      <h2 class="title tw-font-dancingScript tw-text-white tw-text-3xl md:tw-text-5xl ">
+      <h2 class="title tw-font-dancingScript tw-text-white tw-text-3xl md:tw-text-5xl">
         Văn Đà Thuỳ Linh
       </h2>
       <h4 class="sub-title tw-font-comfortaa tw-text-center tw-text-white">11 Tháng 6 2023</h4>
@@ -16,11 +16,16 @@
   </div>
 </template>
 
-<script setup>
-import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
+<script lang="ts" setup>
+import { Carousel, Slide } from 'vue3-carousel';
 import 'vue3-carousel/dist/carousel.css';
 
-const images = [
+interface Image {
+  id:number,
+  url:string
+}
+
+const images:Image[] = [
   {
     id: 1,
     url: 'https://cdn.biihappy.com/ziiweb/website/647a951e7a0e7dd068022467/templates/6174ef83a62963738e0a367c/ff47ee5c7f44475387a85dc2f20256d3.jpg',
@@ -47,7 +52,7 @@ const images = [
 .slide-img {
   width: 100%;
   vertical-align: middle;
-  max-height: 650px;
+  max-height: 100vh;
   display: flex;
   object-fit: cover;
   z-index: 0;

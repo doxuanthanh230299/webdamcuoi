@@ -1,6 +1,6 @@
 <template>
-  <section id="donate-section" class="donate-section">
-    <div class="tw-container">
+  <section id="donation" class="donate-section">
+    <div class="sm:tw-container">
       <div class="sm:tw-block tw-flex tw-px-3.5">
         <div class="tw-w-3/4 tw-mx-auto">
           <div class="title">
@@ -308,36 +308,63 @@
 }
 </style>
 
-<script>
-import { ref } from 'vue';
+<script lang="ts" setup>
+// import { ref } from 'vue';
 
-export default {
-  name: 'Donation',
-  data() {
-    const showP = ref(false);
-    return {
-      showP,
-    };
-  },
-  mounted() {
-    window.addEventListener('scroll', this.scrolling);
-    this.topPositionEl = this.$refs.donation.getBoundingClientRect();
-  },
-  updated() {
-    window.addEventListener('scroll', this.scrolling);
-  },
-  unmounted() {
-    window.removeEventListener('scroll', this.scrolling);
-  },
-  methods: {
-    scrolling() {
-      if (
-        this.$refs.donation.getBoundingClientRect().top < window.innerHeight &&
-        this.$refs.donation.getBoundingClientRect().bottom >= 0
-      ) {
-        this.showP = true;
-      }
-    },
-  },
+// export default {
+//   name: 'Donation',
+//   data() {
+//     const showP = ref(false);
+//     return {
+//       showP,
+//     };
+//   },
+//   mounted() {
+//     window.addEventListener('scroll', this.scrolling);
+//     this.topPositionEl = this.$refs.donation.getBoundingClientRect();
+//   },
+//   updated() {
+//     window.addEventListener('scroll', this.scrolling);
+//   },
+//   unmounted() {
+//     window.removeEventListener('scroll', this.scrolling);
+//   },
+//   methods: {
+//     scrolling() {
+//       if (
+//         this.$refs.donation.getBoundingClientRect().top < window.innerHeight &&
+//         this.$refs.donation.getBoundingClientRect().bottom >= 0
+//       ) {
+//         this.showP = true;
+//       } else {
+//         this.showP = false;
+//       }
+//     },
+//   },
+// };
+
+import { ref, onMounted, onUnmounted, computed, onBeforeUpdate } from 'vue';
+
+const donation = ref<HTMLElement | null>(null);
+const showP = ref<boolean>(false);
+
+const scrolling = async () => {
+  if (
+    donation.value &&
+    donation.value.getBoundingClientRect().top < window.innerHeight &&
+    donation.value.getBoundingClientRect().bottom >= 0
+  ) {
+    showP.value = true;
+  } else {
+    showP.value = false;
+  }
 };
+
+onMounted(() => {
+  window.addEventListener('scroll', scrolling);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', scrolling);
+});
 </script>

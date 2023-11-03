@@ -1,5 +1,5 @@
 <template>
-  <section id="event-section" class="event-section section">
+  <section id="event" class="event-section section">
     <div class="top-background">
       <h2 class="tw-w-3/4 tw-mx-auto">Sự kiện cưới</h2>
       <p class="tw-w-3/4 tw-mx-auto tw-text-sm tw-text-gray tw-font-comfortaa">
@@ -8,75 +8,79 @@
     </div>
     <div class="container tw-text-center tw-mx-auto">
       <div class="tw-flex tw-text-center">
-        <div class="col col-xs-12">
-          <div class="event-grids">
-            <div class="grid">
-              <h3 class="tw-font-comfortaa">Lễ cưới nhà nữ</h3>
-              <div class="img-wrap">
-                <img
-                  src="https://cdn.biihappy.com/ziiweb/default/website/7744fc9739685fe61c53cd8fe2cf7e52.png"
-                  alt=""
-                />
+        <div class="col col-xs-12" ref="event">
+          <transition name="fade">
+            <div class="event-grids" v-if="showP">
+              <div class="grid">
+                <h3 class="tw-font-comfortaa">Lễ cưới nhà nữ</h3>
+                <div class="img-wrap">
+                  <img
+                    src="https://cdn.biihappy.com/ziiweb/default/website/7744fc9739685fe61c53cd8fe2cf7e52.png"
+                    alt=""
+                  />
+                </div>
+                <p>
+                  <strong class="tw-font-comfortaa">10:00 AM 11/06/2023</strong>
+                </p>
+                <p class="tw-font-comfortaa">
+                  Xóm 9, Thôn Kim Ngọc 3, xã Liên Giang, huyện Đông Hưng, tỉnh Thái Bình
+                </p>
+                <div class="calendar-button tw-font-comfortaa">Thêm vào lịch</div>
+                <a href="#" class="see-location-button tw-font-comfortaa">Xem bản đồ</a>
               </div>
-              <p>
-                <strong class="tw-font-comfortaa">10:00 AM 11/06/2023</strong>
-              </p>
-              <p class="tw-font-comfortaa">
-                Xóm 9, Thôn Kim Ngọc 3, xã Liên Giang, huyện Đông Hưng, tỉnh Thái Bình
-              </p>
-              <div class="calendar-button tw-font-comfortaa">Thêm vào lịch</div>
-              <a href="#" class="see-location-button tw-font-comfortaa">Xem bản đồ</a>
-            </div>
-            <div class="grid">
-              <h3 class="tw-font-comfortaa">TIỆC CƯỚI NHÀ NỮ</h3>
-              <div class="img-wrap">
-                <img
-                  src="https://cdn.biihappy.com/ziiweb/default/website/0ea5ba9f2cbe132b3fe488103eb61817.png"
-                  alt=""
-                />
+              <div class="grid">
+                <h3 class="tw-font-comfortaa">TIỆC CƯỚI NHÀ NỮ</h3>
+                <div class="img-wrap">
+                  <img
+                    src="https://cdn.biihappy.com/ziiweb/default/website/0ea5ba9f2cbe132b3fe488103eb61817.png"
+                    alt=""
+                  />
+                </div>
+                <p>
+                  <strong class="tw-font-comfortaa">10:00 AM 11/06/2023</strong>
+                </p>
+                <p class="tw-font-comfortaa">
+                  Xóm 9, Thôn Kim Ngọc 3, xã Liên Giang, huyện Đông Hưng, tỉnh Thái Bình
+                </p>
+                <div class="calendar-button tw-font-comfortaa">Thêm vào lịch</div>
+                <a href="#" class="see-location-button tw-font-comfortaa">Xem bản đồ</a>
               </div>
-              <p>
-                <strong class="tw-font-comfortaa">10:00 AM 11/06/2023</strong>
-              </p>
-              <p class="tw-font-comfortaa">
-                Xóm 9, Thôn Kim Ngọc 3, xã Liên Giang, huyện Đông Hưng, tỉnh Thái Bình
-              </p>
-              <div class="calendar-button tw-font-comfortaa">Thêm vào lịch</div>
-              <a href="#" class="see-location-button tw-font-comfortaa">Xem bản đồ</a>
-            </div>
-            <div class="grid">
-              <h3 class="tw-font-comfortaa">Lễ cưới nhà nam</h3>
-              <div class="img-wrap">
-                <img
-                  src="https://cdn.biihappy.com/ziiweb/default/website/eee1cb36b560f0d80f513c4e9be666db.png"
-                  alt=""
-                />
+              <div class="grid">
+                <h3 class="tw-font-comfortaa">Lễ cưới nhà nam</h3>
+                <div class="img-wrap">
+                  <img
+                    src="https://cdn.biihappy.com/ziiweb/default/website/eee1cb36b560f0d80f513c4e9be666db.png"
+                    alt=""
+                  />
+                </div>
+                <p>
+                  <strong class="tw-font-comfortaa">10:00 AM 11/06/2023</strong>
+                </p>
+                <p class="tw-font-comfortaa">
+                  Xóm 9, Thôn Kim Ngọc 3, xã Liên Giang, huyện Đông Hưng, tỉnh Thái Bình
+                </p>
+                <div class="calendar-button tw-font-comfortaa">Thêm vào lịch</div>
+                <a href="#" class="see-location-button tw-font-comfortaa">Xem bản đồ</a>
               </div>
-              <p>
-                <strong class="tw-font-comfortaa">10:00 AM 11/06/2023</strong>
-              </p>
-              <p class="tw-font-comfortaa">
-                Xóm 9, Thôn Kim Ngọc 3, xã Liên Giang, huyện Đông Hưng, tỉnh Thái Bình
-              </p>
-              <div class="calendar-button tw-font-comfortaa">Thêm vào lịch</div>
-              <a href="#" class="see-location-button tw-font-comfortaa">Xem bản đồ</a>
-            </div>
-            <div class="grid">
-              <h3 class="tw-font-comfortaa tw-font-comfortaa">Tiệc cưới nhà nam</h3>
-              <div class="img-wrap">
-                <img
-                  src="https://cdn.biihappy.com/ziiweb/default/website/21b07b7d583692f49091b87facbf2c92.png"
-                  alt=""
-                />
+              <div class="grid">
+                <h3 class="tw-font-comfortaa tw-font-comfortaa">Tiệc cưới nhà nam</h3>
+                <div class="img-wrap">
+                  <img
+                    src="https://cdn.biihappy.com/ziiweb/default/website/21b07b7d583692f49091b87facbf2c92.png"
+                    alt=""
+                  />
+                </div>
+                <p>
+                  <strong class="tw-font-comfortaa">10:00 AM 11/06/2023</strong>
+                </p>
+                <p class="tw-font-comfortaa">
+                  Xóm 9, Thôn Kim Ngọc 3, xã Liên Giang, huyện Đông Hưng, tỉnh Thái Bình
+                </p>
+                <div class="calendar-button tw-font-comfortaa">Thêm vào lịch</div>
+                <a href="#" class="see-location-button tw-font-comfortaa">Xem bản đồ</a>
               </div>
-              <p>
-                <strong class="tw-font-comfortaa">10:00 AM 11/06/2023</strong>
-              </p>
-              <p class="tw-font-comfortaa">Xóm 9, Thôn Kim Ngọc 3, xã Liên Giang, huyện Đông Hưng, tỉnh Thái Bình</p>
-              <div class="calendar-button tw-font-comfortaa">Thêm vào lịch</div>
-              <a href="#" class="see-location-button tw-font-comfortaa">Xem bản đồ</a>
             </div>
-          </div>
+          </transition>
         </div>
       </div>
     </div>
@@ -214,4 +218,81 @@
     }
   }
 }
+
+.fade-leave-to,
+.fade-enter-from {
+  @apply tw-opacity-0;
+}
+
+.fade-leave-from,
+.fade-enter-to {
+  @apply tw-opacity-100;
+}
+
+.fade-leave-active,
+.fade-enter-active {
+  @apply tw-transition-opacity tw-duration-1000;
+}
 </style>
+
+<script lang="ts" setup>
+
+// import { ref } from 'vue';
+
+// export default {
+//   name: 'Donation',
+//   data() {
+//     const showP = ref(false);
+//     return {
+//       showP,
+//     };
+//   },
+//   mounted() {
+//     window.addEventListener('scroll', this.scrolling);
+//     this.topPositionEl = this.$refs.event.getBoundingClientRect();
+//   },
+//   updated() {
+//     window.addEventListener('scroll', this.scrolling);
+//   },
+//   unmounted() {
+//     window.removeEventListener('scroll', this.scrolling);
+//   },
+//   methods: {
+//     scrolling() {
+//       if (
+//         this.$refs.event.getBoundingClientRect().top < window.innerHeight &&
+//         this.$refs.event.getBoundingClientRect().bottom >= 0
+//       ) {
+//         this.showP = true;
+//       } else {
+//         this.showP = false;
+//       }
+//     },
+//   },
+// };
+
+import { ref, onMounted, onUnmounted, computed, onBeforeUpdate } from 'vue';
+
+const event = ref<HTMLElement | null>(null);
+const showP = ref<boolean>(false);
+
+const scrolling = async () => {
+  if (
+    event.value &&
+    event.value.getBoundingClientRect().top < window.innerHeight &&
+    event.value.getBoundingClientRect().bottom >= 0
+  ) {
+    showP.value = true;
+  } else {
+    showP.value = false;
+  }
+};
+
+onMounted(() => {
+  window.addEventListener('scroll', scrolling);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', scrolling);
+});
+</script>

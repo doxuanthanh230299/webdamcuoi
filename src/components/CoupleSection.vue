@@ -1,5 +1,5 @@
 <template>
-  <section id="couple-section" class="couple-section" ref="couple">
+  <section id="couple" class="couple-section" ref="couple">
     <div class="tw-container">
       <div class="tw-block md:tw-flex">
         <div class="tw-w-full">
@@ -349,36 +349,29 @@
 }
 </style>
 
-<script>
-import { ref } from 'vue';
+<script lang="ts" setup>
+import { ref, onMounted, onUnmounted } from 'vue';
 
-export default {
-  name: 'CoupleSection',
-  data() {
-    const showP = ref(false);
-    return {
-      showP,
-    };
-  },
-  mounted() {
-    window.addEventListener('scroll', this.scrolling);
-    this.topPositionEl = this.$refs.couple.getBoundingClientRect();
-  },
-  updated() {
-    window.addEventListener('scroll', this.scrolling);
-  },
-  unmounted() {
-    window.removeEventListener('scroll', this.scrolling);
-  },
-  methods: {
-    scrolling() {
-      if (
-        this.$refs.couple.getBoundingClientRect().top < window.innerHeight &&
-        this.$refs.couple.getBoundingClientRect().bottom >= 0
-      ) {
-        this.showP = true;
-      }
-    },
-  },
+const couple = ref<HTMLElement | null>(null);
+const showP = ref<boolean>(false);
+
+const scrolling = async () => {
+  if (
+    couple.value &&
+    couple.value.getBoundingClientRect().top < window.innerHeight &&
+    couple.value.getBoundingClientRect().bottom >= 0
+  ) {
+    showP.value = true;
+  } else {
+    showP.value = false;
+  }
 };
+
+onMounted(() => {
+  window.addEventListener('scroll', scrolling);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', scrolling);
+});
 </script>

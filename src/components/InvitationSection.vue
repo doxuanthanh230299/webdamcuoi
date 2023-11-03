@@ -1,36 +1,63 @@
-<script>
-import { ref } from 'vue';
+<script lang="ts" setup>
+import { ref, onMounted, onUnmounted, computed } from 'vue';
 
-export default {
-  name: 'InvitationSection',
-  data() {
-    const showP = ref(false);
-    return {
-      showP,
-    };
-  },
-  mounted() {
-    window.addEventListener('scroll', this.scrolling);
-    this.topPositionEl = this.$refs.invitation.getBoundingClientRect();
-  },
-  updated() {
-    window.addEventListener('scroll', this.scrolling);
-  },
-  unmounted() {
-    window.removeEventListener('scroll', this.scrolling);
-  },
-  methods: {
-    scrolling(e) {
-      if (
-        this.$refs.invitation.getBoundingClientRect().top < window.innerHeight &&
-        this.$refs.invitation.getBoundingClientRect().bottom >= 0
-      ) {
-        this.showP = true;
-      }
-    },
-  },
+const invitation = ref<HTMLElement | null>(null);
+const showP = ref<boolean>(false);
+let clock: any = null;
+let days = ref<any>('');
+let hours = ref<any>('');
+let minutes = ref<any>('');
+let seconds = ref<any>('');
+let weddingDay = ref<any>('');
+
+const scrolling = async () => {
+  if (
+    invitation.value &&
+    invitation.value.getBoundingClientRect().top < window.innerHeight &&
+    invitation.value.getBoundingClientRect().bottom >= 0
+  ) {
+    showP.value = true;
+  } else {
+    showP.value = false;
+  }
 };
+
+const formatDayOfWeek = (date: string) => {
+  if (date) {
+    const options: any = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const formattedDate = new Date(date).toLocaleDateString('en-US', options);
+    return formattedDate;
+  } else {
+    return '';
+  }
+};
+clock = setInterval(() => {
+  weddingDay = new Date('December 1, 2023 11:13:00');
+  const distance = weddingDay - Date.now();
+
+  if (distance < 0) {
+    clearInterval(clock);
+    days = '';
+    hours = '';
+    minutes = '';
+    seconds.value = '';
+  } else {
+    days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    seconds.value = Math.floor((distance % (1000 * 60)) / 1000);
+  }
+}, 1000);
+
+onMounted(() => {
+  window.addEventListener('scroll', scrolling);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', scrolling);
+});
 </script>
+
 <template>
   <section
     id="invitation-section"
@@ -40,112 +67,39 @@ export default {
   >
     <div class="tw-container">
       <div class="tw-block lg:tw-flex">
-        <div class="md:tw-w-full lg:tw-w-1/2 lg:tw-mr-5">
-          <transition name="slide-right">
-            <div class="invitation-box left slide-left" v-if="showP">
-              <div class="left-vec"></div>
-              <div class="inner">
-                <h2>Save the Date</h2>
-                <span>For the wedding of</span>
-                <h3 class="tw-font-comfortaa tw-font-bold">Văn Đà & Thuỳ Linh</h3>
-                <p>
-                  Một lời chúc của bạn chắc chắn sẽ làm cho đám cưới của chúng tôi có thêm một niềm
-                  hạnh phúc!
-                </p>
-                <a href="#">Gửi lời chúc</a>
-              </div>
+        <div class="tw-container tw-text-center">
+          <div
+            class="title tw-text-center tw-mb-4 xs:tw-py-10 md:tw-py-20 md:tw-text-6xl xs:tw-text-3xl tw-text-pink tw-font-dancingScript"
+            id="wedding-title"
+          >
+            {{ formatDayOfWeek(weddingDay) }}
+          </div>
+          <div class="countdown tw-flex tw-justify-evenly">
+            <div
+              id="days"
+              class="countdown-item xs:tw-mr-4 lg:tw-mr-0 xs:tw-w-2/12 lg:tw-w-3/12 xs:tw-text-xl md:tw-text-5xl tw-text-pink tw-font-dancingScript"
+            >
+              {{ days }} days
             </div>
-          </transition>
-        </div>
-        <div class="md:tw-w-full lg:tw-w-1/2">
-          <transition name="slide-left">
-            <div class="invitation-box calendar-box slide-right" v-if="showP">
-              <div class="inner">
-                <div class="calendar">
-                  <table>
-                    <caption class="calendar-month">
-                      THÁNG 6 / 2023
-                    </caption>
-                    <tbody>
-                      <tr>
-                        <th class="abbr" abbr="Sun">Sun</th>
-                        <th class="abbr" abbr="Mon">Mon</th>
-                        <th class="abbr" abbr="Tue">Tue</th>
-                        <th class="abbr" abbr="Wed">Wed</th>
-                        <th class="abbr" abbr="Thu">Thu</th>
-                        <th class="abbr" abbr="Fri">Fri</th>
-                        <th class="abbr" abbr="Sat">Sat</th>
-                      </tr>
-                      <tr>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>1</td>
-                        <td>2</td>
-                        <td>3</td>
-                      </tr>
-                      <tr>
-                        <td>3</td>
-                        <td>4</td>
-                        <td>5</td>
-                        <td>6</td>
-                        <td>7</td>
-                        <td>8</td>
-                        <td>9</td>
-                      </tr>
-                      <tr>
-                        <td>10</td>
-                        <td>11</td>
-                        <td>12</td>
-                        <td>13</td>
-                        <td>14</td>
-                        <td>15</td>
-                        <td>16</td>
-                      </tr>
-                      <tr>
-                        <td>17</td>
-                        <td>18</td>
-                        <td>19</td>
-                        <td>20</td>
-                        <td>21</td>
-                        <td>22</td>
-                        <td>23</td>
-                      </tr>
-                      <tr>
-                        <td>24</td>
-                        <td>25</td>
-                        <td>26</td>
-                        <td>27</td>
-                        <td>28</td>
-                        <td>29</td>
-                        <td>30</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="count-down-clock">
-                  <div class="box">
-                    <h2>134</h2>
-                    <span>ngày</span>
-                  </div>
-                  <div class="box">
-                    <h2>10</h2>
-                    <span>giờ</span>
-                  </div>
-                  <div class="box">
-                    <h2>14</h2>
-                    <span>Phút</span>
-                  </div>
-                  <div class="box">
-                    <h2>134</h2>
-                    <span>ngày</span>
-                  </div>
-                </div>
-              </div>
-              <div class="right-vec"></div>
+            <div
+              id="hours"
+              class="countdown-item xs:tw-mr-4 lg:tw-mr-0 xs:tw-w-2/12 lg:tw-w-3/12 xs:tw-text-xl md:tw-text-5xl tw-text-pink tw-font-dancingScript"
+            >
+              {{ hours }} hours
             </div>
-          </transition>
+            <div
+              id="minutes"
+              class="countdown-item xs:tw-mr-4 lg:tw-mr-0 xs:tw-w-2/12 lg:tw-w-3/12 xs:tw-text-xl md:tw-text-5xl tw-text-pink tw-font-dancingScript"
+            >
+              {{ minutes }} minutes
+            </div>
+            <div
+              id="seconds"
+              class="countdown-item xs:tw-mr-4 lg:tw-mr-0 xs:tw-w-2/12 lg:tw-w-3/12 xs:tw-text-xl md:tw-text-5xl tw-text-pink tw-font-dancingScript"
+            >
+              {{ seconds }} seconds
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -155,7 +109,7 @@ export default {
 <style lang="scss" scoped>
 .invitation-section {
   background: url('https://linhda0611.iwedding.info/templates/template15/images/bg.png');
-  padding: 120px 0;
+  padding: 40px 0 100px;
   overflow: hidden;
   .invitation-box {
     background: #fff;

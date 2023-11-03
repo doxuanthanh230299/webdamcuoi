@@ -12,7 +12,7 @@
   <Footer />
 </template>
 
-<script>
+<script lang="ts" setup>
 import Header from './components/Header.vue';
 import Slider from './components/Slider.vue';
 import InvitationSection from './components/InvitationSection.vue';
@@ -25,20 +25,4 @@ import Contact from './components/Contact.vue';
 import Donation from './components/Donation.vue';
 import Footer from './components/Footer.vue';
 
-export default {
-  name: 'App',
-  components: {
-    Header,
-    Slider,
-    InvitationSection,
-    CoupleSection,
-    Accessibilities,
-    Story,
-    Event,
-    Album,
-    Contact,
-    Donation,
-    Footer,
-  },
-};
 </script>

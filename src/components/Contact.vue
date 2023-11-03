@@ -1,6 +1,6 @@
 <template>
-  <section id="contact-section" class="contact-section section" ref="contact">
-    <div class="tw-container">
+  <section id="wish" class="contact-section section" ref="contact">
+    <div class="sm:tw-container">
       <div class="sm:tw-block tw-flex tw-px-3.5">
         <div class="tw-w-3/4 tw-mx-auto">
           <div class="title">
@@ -19,17 +19,32 @@
             v-if="showP"
           >
             <div class="contact-form slide-left">
-              <form action="" class="tw-block md:tw-flex md:tw-w-full md:tw-flex-wrap">
+              <form
+                @submit.prevent="onSubmit"
+                action=""
+                class="tw-block md:tw-flex md:tw-w-full md:tw-flex-wrap"
+              >
                 <div class="sm:tw-w-full md:tw-w-6/12 md:tw-pr-4">
-                  <input type="text" placeholder="Nhập họ tên*" class="tw-font-comfortaa" />
+                  <input
+                    type="text"
+                    v-model="data.name"
+                    placeholder="Nhập họ tên*"
+                    class="tw-font-comfortaa"
+                  />
                 </div>
                 <div class="sm:tw-w-full md:tw-w-6/12">
-                  <input type="text" placeholder="Nhập email" class="tw-font-comfortaa" />
+                  <input
+                    type="text"
+                    v-model="data.email"
+                    placeholder="Nhập email"
+                    class="tw-font-comfortaa"
+                  />
                 </div>
                 <div class="sm:tw-w-full md:tw-w-full">
                   <textarea
+                    v-model="data.message"
                     placeholder="Nhập lời chúc của bạn"
-                    class="tw-font-comfortaa"
+                    class="tw-font-comfortaa tw-max-h-48"
                   ></textarea>
                 </div>
                 <div class="sm:tw-w-full md:tw-w-full submit-button">
@@ -44,8 +59,8 @@
             <div class="wish-box slide-right">
               <div class="wish-box-item" v-for="wish in wishList" :key="wish.id">
                 <strong class="tw-font-comfortaa">{{ wish.name }}</strong>
-                <p class="tw-font-comfortaa">
-                  {{ wish.msg }}
+                <p class="tw-font-comfortaa tw-w-full tw-text-clip tw-overflow-hidden">
+                  {{ wish.message }}
                 </p>
               </div>
             </div>
@@ -208,77 +223,140 @@
 }
 </style>
 
-<script>
-import { ref } from 'vue';
-export default {
-  name: 'Contact',
-  data() {
-    const showP = ref(false);
-    return {
-      showP,
-      wishList: [
-        {
-          id: 1,
-          name: 'Chị Nưu Ny',
-          msg: 'Chúc hai vợ chồng có một đám cưới thật đáng nhớ, một cuộc sống thật đẹp và một gia đình thật hạnh phúc❤️',
-        },
-        {
-          id: 2,
-          name: 'Thảoo',
-          msg: 'Chúc bạn và gia đình có một ngày vui thật trọn vẹn. Hãy yêu thương nhau thật nhiều và sống thật hạnh phúc nhé 🥰🥰 !!! Happy wedding bạn mình 🥳',
-        },
-        {
-          id: 3,
-          name: 'C Phượng',
-          msg: 'Chúc em iu có 1 đám cưới trong mơ, 1 cs viên mãn hạnh phúc nhé.',
-        },
-        {
-          id: 4,
-          name: 'Dương Đỗ Trung',
-          msg: 'Chúc mừng hai bạn và gia đình! Chúc cô dâu chú rể trăm năm hạnh phúc, thủy chung trọn vẹn, đi về có nhau. Dù sống đến tuổi răng long đầu bạc nhưng xem nhau như những ngày mới gặp. Đã chỉ non mà thề đã chỉ trăng mà hẹn thì phải giữ trọn tình yêu.',
-        },
-        {
-          id: 5,
-          name: 'Bạn cùng phòng Mai Mai',
-          msg: 'chúc cho cô dâu chú rể trăm năm hạnh phúc, thủy chung trọn vẹn, đi về có nhau, dù sống đến tuổi răng long đầu bạc nhưng xem nhau như ngày mới gặp. Happe eding b toiii',
-        },
-        {
-          id: 6,
-          name: 'Chị Nưu Ny',
-          msg: 'Chúc hai vợ chồng có một đám cưới thật đáng nhớ, một cuộc sống thật đẹp và một gia đình thật hạnh phúc❤️',
-        },
-        {
-          id: 7,
-          name: 'Chị Nưu Ny',
-          msg: 'Chúc hai vợ chồng có một đám cưới thật đáng nhớ, một cuộc sống thật đẹp và một gia đình thật hạnh phúc❤️',
-        },
-        {
-          id: 8,
-          name: 'Chị Nưu Ny',
-          msg: 'Chúc hai vợ chồng có một đám cưới thật đáng nhớ, một cuộc sống thật đẹp và một gia đình thật hạnh phúc❤️',
-        },
-      ],
-    };
-  },
-  mounted() {
-    window.addEventListener('scroll', this.scrolling);
-    this.topPositionEl = this.$refs.contact.getBoundingClientRect();
-  },
-  updated() {
-    window.addEventListener('scroll', this.scrolling);
-  },
-  unmounted() {
-    window.removeEventListener('scroll', this.scrolling);
-  },
-  methods: {
-    scrolling() {
-      if (
-        this.$refs.contact.getBoundingClientRect().top < window.innerHeight &&
-        this.$refs.contact.getBoundingClientRect().bottom >= 0
-      ) {
-        this.showP = true;
-      }
-    },
-  },
+<script lang="ts" setup>
+import { ref, onMounted, onUnmounted, computed } from 'vue';
+import { useStore } from 'vuex';
+
+const contact = ref<HTMLElement | null>(null);
+const showP = ref<boolean>(false);
+const store = useStore<any>();
+
+const getAllWishItems = () => store.dispatch('wishList/getAllWishItems');
+getAllWishItems();
+const wishList = computed(() => store.getters['wishList/wishList']);
+
+interface Data {
+  name: string;
+  email: string;
+  message: string;
+}
+
+let data = ref<Data>({
+  name: '',
+  email: '',
+  message: '',
+});
+
+const scrolling = async () => {
+  if (
+    contact.value &&
+    contact.value.getBoundingClientRect().top < window.innerHeight &&
+    contact.value.getBoundingClientRect().bottom >= 0
+  ) {
+    showP.value = true;
+  } else {
+    showP.value = false;
+  }
 };
+
+const onSubmit = () => {
+  store.dispatch('wishList/postWishItem', data.value).then(() => {
+    data.value = {
+      name: '',
+      email: '',
+      message: '',
+    };
+  });
+};
+
+onMounted(() => {
+  window.addEventListener('scroll', scrolling);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', scrolling);
+});
+
+// export default {
+// name: 'Contact',
+// data() {
+//   const showP = ref(false);
+//   return {
+//     showP,
+//     data: {
+//       name: '',
+//       email: '',
+//       message: '',
+//     },
+//   };
+// },
+// computed: {
+//   ...mapGetters(['wishList']),
+// },
+// created() {
+//   this.$store.dispatch('getAllWishItems');
+//   this.$store.getters.getItem;
+// },
+// mounted() {
+//   window.addEventListener('scroll', this.scrolling);
+//   this.topPositionEl = this.$refs.contact.getBoundingClientRect();
+// },
+// updated() {
+//   window.addEventListener('scroll', this.scrolling);
+// },
+// unmounted() {
+//   window.removeEventListener('scroll', this.scrolling);
+// },
+// methods: {
+//   scrolling() {
+//     if (
+//       this.$refs.contact.getBoundingClientRect().top < window.innerHeight &&
+//       this.$refs.contact.getBoundingClientRect().bottom >= 0
+//     ) {
+//       this.showP = true;
+//     } else {
+//       this.showP = false;
+//     }
+//   },
+
+//   // async getData() {
+//   //   try {
+//   //     const response = await axios.get(
+//   //       'https://sheet.best/api/sheets/c0acd53c-4d9c-4477-a4b4-0f8e0047bfd7'
+//   //     );
+//   //     this.wishList = response.data;
+//   //   } catch (error) {
+//   //     console.error('Error getting data:', error);
+//   //   }
+//   // },
+
+//   onSubmit() {
+//     this.$store.dispatch('postWishItem', this.data).then(() => {
+//       console.log(this.data);
+//       this.data = {
+//         message: '',
+//         name: '',
+//         email: '',
+//       };
+//     });
+
+//     // try {
+//     //   const response = await axios.post(
+//     //     'https://sheet.best/api/sheets/c0acd53c-4d9c-4477-a4b4-0f8e0047bfd7',
+//     //     this.data
+//     //   );
+//     //   if (response.status === 200) {
+//     //     this.wishList.push(this.data);
+//     //     this.data = {
+//     //       message: '',
+//     //       name: '',
+//     //       email: '',
+//     //     };
+//     //   }
+//     // } catch (e) {
+//     //   console.error('Error getting data:', error);
+//     // }
+//   },
+// },
+// };
 </script>
